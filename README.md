@@ -7,7 +7,7 @@
 
 ---
 
-# 🇬🇧 English Version
+# 🇬🇧 English Version WIP
 
 An **Anki deck** designed for **Site Reliability Engineers (SRE)** and DevOps engineers to master **technical Japanese vocabulary** (JLPT N4→N2 level) related to:
 - **Incidents & Emergencies** (障害, 復旧, ダウンタイム...)
