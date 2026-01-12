@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔧 Install asdf
+        uses: asdf-vm/actions/setup@v3
+
+      - name: 📦 Install tools via asdf
+        run: asdf install
+
+      - name: 🐍 Verify versions
+        run: |
+          python --version
+          pdm --version
+          uv --version
+          just --version
+
+      - name: ♻️Cache PDM
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pdm
+            .venv
+          key: pdm-${{ runner.os }}-${{ hashFiles('pdm.lock') }}
+          restore-keys: |
+            pdm-${{ runner.os }}-
+
+      - name: 📥 Install dependencies
+        run: |
+          uv run pdm install
+
+      - name: 🏗️ Build / run project
+        run: |
+          just build
+
